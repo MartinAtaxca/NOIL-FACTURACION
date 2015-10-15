@@ -1,7 +1,7 @@
 object FrmLogin: TFrmLogin
   Left = 0
   Top = 0
-  BorderStyle = bsSingle
+  BorderStyle = bsDialog
   Caption = 'Iniciar Sesi'#243'n'
   ClientHeight = 257
   ClientWidth = 417
@@ -12,6 +12,7 @@ object FrmLogin: TFrmLogin
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   object cxlbl1: TcxLabel
@@ -50,7 +51,6 @@ object FrmLogin: TFrmLogin
     Left = 139
     Top = 78
     TabOrder = 1
-    Text = 'cxTextUsuario'
     Width = 238
   end
   object cxTextContrasena: TcxTextEdit
@@ -58,24 +58,25 @@ object FrmLogin: TFrmLogin
     Top = 102
     Properties.EchoMode = eemPassword
     TabOrder = 2
-    Text = 'cxTextUsuario'
     Width = 238
   end
   object cbbDireccionesIP: TcxComboBox
     Left = 138
     Top = 24
     TabOrder = 0
-    Text = 'cbbDireccionesIP'
+    Text = 'Localhost'
     OnExit = cbbDireccionesIPExit
-    Width = 190
+    Width = 238
   end
   object dxLookUpEmpresas: TdxLookupTreeView
     Left = 138
     Top = 150
     Width = 238
-    Height = 21
+    Height = 19
     CanSelectParents = True
+    Ctl3D = False
     ParentColor = False
+    ParentCtl3D = False
     TabOrder = 4
     TabStop = True
     TreeViewColor = clWindow
@@ -93,7 +94,7 @@ object FrmLogin: TFrmLogin
     TreeViewShowRoot = True
     TreeViewSortType = stNone
     DividedChar = '.'
-    Options = [trDBCanDelete, trDBConfirmDelete, trCanDBNavigate, trSmartRecordCopy, trCheckHasChildren]
+    Options = [trCanDBNavigate, trSmartRecordCopy, trCheckHasChildren]
     RootValue = Null
     TextStyle = tvtsShort
     Alignment = taLeftJustify
@@ -110,6 +111,7 @@ object FrmLogin: TFrmLogin
     Height = 25
     Caption = '&Iniciar Sesi'#243'n'
     TabOrder = 5
+    OnClick = btnLoginClick
   end
   object btnCancelar: TcxButton
     Left = 297

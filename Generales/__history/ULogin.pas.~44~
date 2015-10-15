@@ -71,9 +71,9 @@ begin
     with varGlobal do
     begin
       SetValue('HostName', cbbDireccionesIP.Text);
-      SetValue('Usuario', cbbDireccionesIP.Text);
-      SetValue('Contrasena', cbbDireccionesIP.Text);
-      SetValue('BaseDatos', cbbDireccionesIP.Text);
+      SetValue('Usuario', cxTextUsuario.Text);
+      SetValue('Contrasena', cxTextContrasena.Text);
+      SetValue('BaseDatos', cbbBaseDatos.Text);
       SetValue('IDImpresa', -1);
       SetValue('NombreEmpresa', 'SIN EMPRESA');
     end;
@@ -91,8 +91,8 @@ begin
 
     RecargarConsultasSQL;
 
-    if VerificarUsuario then
-
+    if Not VerificarUsuario then
+      raise eWarning.Create('El nombre de usuario o contraseña es incorrecto. Por favor intentalo nuevamente.');
 
     Self.Close;
   except

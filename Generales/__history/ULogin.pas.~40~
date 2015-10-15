@@ -41,8 +41,9 @@ type
     dsBaseDatos: TDataSource;
     procedure cbbDireccionesIPExit(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
-    function VerificarUsuario(Usuario, Contrasena: string): Boolean;
+    function VerificarUsuario: Boolean;
 
     { Private declarations }
   public
@@ -71,9 +72,9 @@ begin
     with varGlobal do
     begin
       SetValue('HostName', cbbDireccionesIP.Text);
-      SetValue('Usuario', cbbDireccionesIP.Text);
-      SetValue('Contrasena', cbbDireccionesIP.Text);
-      SetValue('BaseDatos', cbbDireccionesIP.Text);
+      SetValue('Usuario', cxTextUsuario.Text);
+      SetValue('Contrasena', cxTextContrasena.Text);
+      SetValue('BaseDatos', cbbBaseDatos.Text);
       SetValue('IDImpresa', -1);
       SetValue('NombreEmpresa', 'SIN EMPRESA');
     end;
@@ -91,7 +92,10 @@ begin
 
     RecargarConsultasSQL;
 
-    //Self.Close;
+    if Not VerificarUsuario then
+      raise eWarning.Create('El nombre de usuario o contraseña es incorrecto. Por favor intentalo nuevamente.');
+
+    Self.Close;
   except
     on e: eWarning do
     begin
@@ -138,13 +142,19 @@ begin
 
 end;
 
-function TFrmLogin.VerificarUsuario(Usuario, Contrasena: string): Boolean;
+procedure TFrmLogin.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  raise Exception.Create('***');
+end;
+
+function TFrmLogin.VerificarUsuario: Boolean;
 var
   zUsuario: TZQuery;
 begin
   try
     Result := False;
     zUsuario := TZQuery.Create(Self);
+
 
     if not AsignarSQL(zUsuario, 'master_usuarios', pReadOnly) then
       raise Exception.Create('No se encuentra la Consulta [Master_Usuarios] en la base de datos seleccionada');

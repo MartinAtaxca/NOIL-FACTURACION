@@ -93,7 +93,7 @@ object FrmLogin: TFrmLogin
     TreeViewShowRoot = True
     TreeViewSortType = stNone
     DividedChar = '.'
-    Options = [trDBCanDelete, trDBConfirmDelete, trCanDBNavigate, trSmartRecordCopy, trCheckHasChildren]
+    Options = [trCanDBNavigate, trSmartRecordCopy, trCheckHasChildren]
     RootValue = Null
     TextStyle = tvtsShort
     Alignment = taLeftJustify
@@ -110,6 +110,7 @@ object FrmLogin: TFrmLogin
     Height = 25
     Caption = '&Iniciar Sesi'#243'n'
     TabOrder = 5
+    OnClick = btnLoginClick
   end
   object btnCancelar: TcxButton
     Left = 297
@@ -122,16 +123,16 @@ object FrmLogin: TFrmLogin
   object zBaseDatos: TZQuery
     Params = <>
     Left = 104
-    Top = 192
+    Top = 200
   end
   object zEmpresas: TZQuery
     Params = <>
     Left = 32
-    Top = 192
+    Top = 200
   end
   object dsBaseDatos: TDataSource
     DataSet = zBaseDatos
     Left = 168
-    Top = 192
+    Top = 200
   end
 end

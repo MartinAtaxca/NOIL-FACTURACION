@@ -60,13 +60,28 @@ procedure TFrmLogin.btnLoginClick(Sender: TObject);
 begin
   try
     if Length(Trim(cbbDireccionesIP.Text)) = 0 then
+    begin
+      if cbbDireccionesIP.CanFocus then
+        cbbDireccionesIP.SetFocus;
+
       raise eWarning.Create('Escribe la dirección IP donde se ubica tu base de datos.');
+    end;
 
     if Length(Trim(cxTextUsuario.Text)) = 0 then
+    begin
+      if cxTextUsuario.CanFocus then
+        cxTextUsuario.SetFocus;
+
       raise eWarning.Create('Escribe el nombre del usuario.');
+    end;
 
     if Length(Trim(cbbBaseDatos.Text)) = 0 then
+    begin
+      if cbbBaseDatos.CanFocus then
+        cbbBaseDatos.SetFocus;
+
       raise eWarning.Create('Selecciona la base de datos con la que deseas trabajar.');
+    end;
 
     with varGlobal do
     begin
@@ -92,7 +107,14 @@ begin
     RecargarConsultasSQL;
 
     if Not VerificarUsuario then
+    begin
+      cbbDireccionesIPExit(nil);
+
+      if cxTextUsuario.CanFocus then
+        cxTextUsuario.SetFocus;
+
       raise eWarning.Create('El nombre de usuario o contraseña es incorrecto. Por favor intentalo nuevamente.');
+    end;
 
     Self.Close;
   except
@@ -148,7 +170,6 @@ begin
   try
     Result := False;
     zUsuario := TZQuery.Create(Self);
-
 
     if not AsignarSQL(zUsuario, 'master_usuarios', pReadOnly) then
       raise Exception.Create('No se encuentra la Consulta [Master_Usuarios] en la base de datos seleccionada');

@@ -66,9 +66,7 @@ begin
     varGlobal := TGlobales.Create;
 
     Application.CreateForm(TFrmLogin, FrmLogin);
-    If FrmLogin.ShowModal = mrAbort then
-      Self.Close;
-
+    FrmLogin.ShowModal;
   Except
     on e: Exception do
       MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);

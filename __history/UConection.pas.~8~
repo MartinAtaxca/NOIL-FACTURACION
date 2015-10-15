@@ -77,7 +77,7 @@ end;
 procedure TUDMConection.DataModuleDestroy(Sender: TObject);
 begin
   if conBD.Connected then
-    conBD.Disconnect;
+    conBD.Connected := False;
 end;
 
 function TUDMConection.ReloadQuerys: Boolean;

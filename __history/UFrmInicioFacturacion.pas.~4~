@@ -25,7 +25,7 @@ uses
   ZDataset, UConection;
 
 type
-  TForm1 = class(TdxRibbonForm)
+  TFrmInicioFacturacion = class(TdxRibbonForm)
     dxBarManager1: TdxBarManager;
     dxBarManager1Bar1: TdxBar;
     dxRibbon1: TdxRibbon;
@@ -38,32 +38,64 @@ type
     dxRibbonBackstageViewGalleryControl1Group1: TdxRibbonBackstageViewGalleryGroup;
     dxSkinController1: TdxSkinController;
     dxRibbonBackstageViewGalleryControl1Group1Item1: TdxRibbonBackstageViewGalleryItem;
-    zX: TZQuery;
+    zDatos: TZQuery;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
+    procedure ArrancarSistema;
     { Public declarations }
   end;
 
 var
-  Form1: TForm1;
+  FrmInicioFacturacion: TFrmInicioFacturacion;
 
 implementation
 
 {$R *.dfm}
 
+Uses
+  ULogin;
+
 { TForm1 }
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TFrmInicioFacturacion.ArrancarSistema;
+begin
+  try
+    Application.CreateForm(TFrmLogin, FrmLogin);
+    FrmLogin.ShowModal;
+  Except
+    on e: Exception do
+      MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);
+  end;
+end;
+
+procedure TFrmInicioFacturacion.FormCreate(Sender: TObject);
 begin
   DisableAero := True;
 end;
 
-procedure TForm1.FormShow(Sender: TObject);
+procedure TFrmInicioFacturacion.FormShow(Sender: TObject);
 begin
-  AsignarSQL(zX,'master_contactos', pReadOnly);
+  Try
+    if Not AsignarSQL(zDatos,'master_contactos', pReadOnly) then
+      raise Exception.Create('La Consulta SQL [master_contacto] no se ha creado');
+
+    If Not FiltrarDataset(zDatos, 'Activo',['Si']) then
+      raise Exception.Create('Error al filtrar en la consulta SQL[master_contacto]');
+
+    if zDatos.Active then
+      zDatos.Refresh
+    else
+      zDatos.Open;
+  except
+    on e: Exception do
+    begin
+      MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);
+      PostMessage(Self.Handle, WM_CLOSE, 0, 0);
+    end;
+  End;
 end;
 
 end.

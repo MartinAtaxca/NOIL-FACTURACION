@@ -41,7 +41,10 @@ type
     dsBaseDatos: TDataSource;
     procedure cbbDireccionesIPExit(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
+    function VerificarUsuario: Boolean;
+
     { Private declarations }
   public
     { Public declarations }
@@ -69,9 +72,9 @@ begin
     with varGlobal do
     begin
       SetValue('HostName', cbbDireccionesIP.Text);
-      SetValue('Usuario', cbbDireccionesIP.Text);
-      SetValue('Contrasena', cbbDireccionesIP.Text);
-      SetValue('BaseDatos', cbbDireccionesIP.Text);
+      SetValue('Usuario', cxTextUsuario.Text);
+      SetValue('Contrasena', cxTextContrasena.Text);
+      SetValue('BaseDatos', cbbBaseDatos.Text);
       SetValue('IDImpresa', -1);
       SetValue('NombreEmpresa', 'SIN EMPRESA');
     end;
@@ -89,7 +92,10 @@ begin
 
     RecargarConsultasSQL;
 
-    //Self.Close;
+    if Not VerificarUsuario then
+      raise eWarning.Create('El nombre de usuario o contraseña es incorrecto. Por favor intentalo nuevamente.');
+
+    Self.Close;
   except
     on e: eWarning do
     begin
@@ -134,6 +140,38 @@ begin
       MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);
   end;
 
+end;
+
+procedure TFrmLogin.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  raise;
+end;
+
+function TFrmLogin.VerificarUsuario: Boolean;
+var
+  zUsuario: TZQuery;
+begin
+  try
+    Result := False;
+    zUsuario := TZQuery.Create(Self);
+
+
+    if not AsignarSQL(zUsuario, 'master_usuarios', pReadOnly) then
+      raise Exception.Create('No se encuentra la Consulta [Master_Usuarios] en la base de datos seleccionada');
+
+    if not FiltrarDataset(zUsuario, 'Usuario', [cxTextUsuario.Text]) then
+      raise Exception.Create('No se pudo filtrar el Dataset usando la consulta [Master_Usuarios]');
+
+    if zUsuario.Active then
+      zUsuario.Refresh
+    else
+      zUsuario.Open;
+
+    if zUsuario.FieldByName('Contrasena').AsString = cxTextContrasena.Text then
+      Result := True;
+  finally
+    zUsuario.Free;
+  end;
 end;
 
 end.

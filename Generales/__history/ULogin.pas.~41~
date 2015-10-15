@@ -41,6 +41,7 @@ type
     dsBaseDatos: TDataSource;
     procedure cbbDireccionesIPExit(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     function VerificarUsuario: Boolean;
 
@@ -71,9 +72,9 @@ begin
     with varGlobal do
     begin
       SetValue('HostName', cbbDireccionesIP.Text);
-      SetValue('Usuario', cbbDireccionesIP.Text);
-      SetValue('Contrasena', cbbDireccionesIP.Text);
-      SetValue('BaseDatos', cbbDireccionesIP.Text);
+      SetValue('Usuario', cxTextUsuario.Text);
+      SetValue('Contrasena', cxTextContrasena.Text);
+      SetValue('BaseDatos', cbbBaseDatos.Text);
       SetValue('IDImpresa', -1);
       SetValue('NombreEmpresa', 'SIN EMPRESA');
     end;
@@ -141,6 +142,11 @@ begin
 
 end;
 
+procedure TFrmLogin.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+ // raise Exception.Create('***');
+end;
+
 function TFrmLogin.VerificarUsuario: Boolean;
 var
   zUsuario: TZQuery;
@@ -148,6 +154,7 @@ begin
   try
     Result := False;
     zUsuario := TZQuery.Create(Self);
+
 
     if not AsignarSQL(zUsuario, 'master_usuarios', pReadOnly) then
       raise Exception.Create('No se encuentra la Consulta [Master_Usuarios] en la base de datos seleccionada');

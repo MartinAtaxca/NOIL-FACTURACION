@@ -92,7 +92,10 @@ begin
     RecargarConsultasSQL;
 
     if Not VerificarUsuario then
+    begin
+      cbbDireccionesIPExit(nil);
       raise eWarning.Create('El nombre de usuario o contraseña es incorrecto. Por favor intentalo nuevamente.');
+    end;
 
     Self.Close;
   except
@@ -148,8 +151,6 @@ begin
   try
     Result := False;
     zUsuario := TZQuery.Create(Self);
-
-    if varGlobal.Elemento('Usuario') then
 
     if not AsignarSQL(zUsuario, 'master_usuarios', pReadOnly) then
       raise Exception.Create('No se encuentra la Consulta [Master_Usuarios] en la base de datos seleccionada');

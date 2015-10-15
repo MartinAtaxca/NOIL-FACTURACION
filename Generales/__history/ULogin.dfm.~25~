@@ -12,6 +12,8 @@ object FrmLogin: TFrmLogin
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
+  OnCloseQuery = FormCloseQuery
   PixelsPerInch = 96
   TextHeight = 13
   object cxlbl1: TcxLabel
@@ -32,7 +34,12 @@ object FrmLogin: TFrmLogin
   object cbbBaseDatos: TcxLookupComboBox
     Left = 139
     Top = 126
-    Properties.ListColumns = <>
+    Properties.KeyFieldNames = 'Database'
+    Properties.ListColumns = <
+      item
+        FieldName = 'DataBase'
+      end>
+    Properties.ListSource = dsBaseDatos
     TabOrder = 3
     Width = 238
   end
@@ -44,33 +51,34 @@ object FrmLogin: TFrmLogin
   object cxTextUsuario: TcxTextEdit
     Left = 139
     Top = 78
-    TabOrder = 5
-    Text = 'cxTextUsuario'
+    TabOrder = 1
     Width = 238
   end
   object cxTextContrasena: TcxTextEdit
     Left = 139
     Top = 102
     Properties.EchoMode = eemPassword
-    TabOrder = 6
-    Text = 'cxTextUsuario'
+    TabOrder = 2
     Width = 238
   end
   object cbbDireccionesIP: TcxComboBox
     Left = 138
     Top = 24
-    TabOrder = 7
-    Text = 'cbbDireccionesIP'
+    TabOrder = 0
+    Text = 'Localhost'
+    OnExit = cbbDireccionesIPExit
     Width = 190
   end
   object dxLookUpEmpresas: TdxLookupTreeView
     Left = 138
     Top = 150
     Width = 238
-    Height = 21
+    Height = 19
     CanSelectParents = True
+    Ctl3D = False
     ParentColor = False
-    TabOrder = 8
+    ParentCtl3D = False
+    TabOrder = 4
     TabStop = True
     TreeViewColor = clWindow
     TreeViewCursor = crDefault
@@ -87,7 +95,7 @@ object FrmLogin: TFrmLogin
     TreeViewShowRoot = True
     TreeViewSortType = stNone
     DividedChar = '.'
-    Options = [trDBCanDelete, trDBConfirmDelete, trCanDBNavigate, trSmartRecordCopy, trCheckHasChildren]
+    Options = [trCanDBNavigate, trSmartRecordCopy, trCheckHasChildren]
     RootValue = Null
     TextStyle = tvtsShort
     Alignment = taLeftJustify
@@ -103,7 +111,8 @@ object FrmLogin: TFrmLogin
     Width = 75
     Height = 25
     Caption = '&Iniciar Sesi'#243'n'
-    TabOrder = 10
+    TabOrder = 5
+    OnClick = btnLoginClick
   end
   object btnCancelar: TcxButton
     Left = 297
@@ -111,16 +120,21 @@ object FrmLogin: TFrmLogin
     Width = 75
     Height = 25
     Caption = '&Cancelar'
-    TabOrder = 11
+    TabOrder = 6
   end
   object zBaseDatos: TZQuery
     Params = <>
     Left = 104
-    Top = 176
+    Top = 200
   end
   object zEmpresas: TZQuery
     Params = <>
     Left = 32
-    Top = 176
+    Top = 200
+  end
+  object dsBaseDatos: TDataSource
+    DataSet = zBaseDatos
+    Left = 168
+    Top = 200
   end
 end
