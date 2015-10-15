@@ -41,6 +41,7 @@ type
     zConsultasSQL: TZQuery;
     procedure DataModuleDestroy(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
+    procedure conBDAfterConnect(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,6 +69,11 @@ implementation
 Uses
   UFrmInicioFacturacion;
 { TDataModule2 }
+
+procedure TUDMConection.conBDAfterConnect(Sender: TObject);
+begin
+  ReloadQuerys;
+end;
 
 procedure TUDMConection.DataModuleCreate(Sender: TObject);
 begin

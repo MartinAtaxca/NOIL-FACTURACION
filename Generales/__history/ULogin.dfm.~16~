@@ -1,0 +1,132 @@
+object FrmLogin: TFrmLogin
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'Iniciar Sesi'#243'n'
+  ClientHeight = 257
+  ClientWidth = 417
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object cxlbl1: TcxLabel
+    Left = 31
+    Top = 24
+    Caption = 'Ubicaci'#243'n:'
+  end
+  object cxlbl2: TcxLabel
+    Left = 32
+    Top = 79
+    Caption = 'Usuario:'
+  end
+  object cxlbl3: TcxLabel
+    Left = 32
+    Top = 103
+    Caption = 'Constrase'#241'a:'
+  end
+  object cbbBaseDatos: TcxLookupComboBox
+    Left = 139
+    Top = 126
+    Properties.ListColumns = <>
+    TabOrder = 3
+    Width = 238
+  end
+  object cxlbl4: TcxLabel
+    Left = 32
+    Top = 127
+    Caption = 'Base de Datos:'
+  end
+  object cxTextUsuario: TcxTextEdit
+    Left = 139
+    Top = 78
+    TabOrder = 5
+    Text = 'cxTextUsuario'
+    Width = 238
+  end
+  object cxTextContrasena: TcxTextEdit
+    Left = 139
+    Top = 102
+    Properties.EchoMode = eemPassword
+    TabOrder = 6
+    Text = 'cxTextUsuario'
+    Width = 238
+  end
+  object cbbDireccionesIP: TcxComboBox
+    Left = 138
+    Top = 24
+    TabOrder = 7
+    Text = 'cbbDireccionesIP'
+    OnExit = cbbDireccionesIPExit
+    Width = 190
+  end
+  object dxLookUpEmpresas: TdxLookupTreeView
+    Left = 138
+    Top = 150
+    Width = 238
+    Height = 21
+    CanSelectParents = True
+    ParentColor = False
+    TabOrder = 8
+    TabStop = True
+    TreeViewColor = clWindow
+    TreeViewCursor = crDefault
+    TreeViewFont.Charset = DEFAULT_CHARSET
+    TreeViewFont.Color = clWindowText
+    TreeViewFont.Height = -11
+    TreeViewFont.Name = 'Tahoma'
+    TreeViewFont.Style = []
+    TreeViewIndent = 19
+    TreeViewReadOnly = False
+    TreeViewShowButtons = True
+    TreeViewShowHint = False
+    TreeViewShowLines = True
+    TreeViewShowRoot = True
+    TreeViewSortType = stNone
+    DividedChar = '.'
+    Options = [trDBCanDelete, trDBConfirmDelete, trCanDBNavigate, trSmartRecordCopy, trCheckHasChildren]
+    RootValue = Null
+    TextStyle = tvtsShort
+    Alignment = taLeftJustify
+  end
+  object cxlbl5: TcxLabel
+    Left = 32
+    Top = 150
+    Caption = 'Empresas:'
+  end
+  object btnLogin: TcxButton
+    Left = 216
+    Top = 208
+    Width = 75
+    Height = 25
+    Caption = '&Iniciar Sesi'#243'n'
+    TabOrder = 10
+  end
+  object btnCancelar: TcxButton
+    Left = 297
+    Top = 208
+    Width = 75
+    Height = 25
+    Caption = '&Cancelar'
+    TabOrder = 11
+  end
+  object zBaseDatos: TZQuery
+    Params = <>
+    Left = 104
+    Top = 192
+  end
+  object zEmpresas: TZQuery
+    Params = <>
+    Left = 32
+    Top = 192
+  end
+  object dsBaseDatos: TDataSource
+    DataSet = zBaseDatos
+    Left = 168
+    Top = 192
+  end
+end

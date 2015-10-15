@@ -33,8 +33,8 @@ type
     procedure SetValue(Nombre: String; Valor: Variant);
   End;
 
-  eWarning = class(Exception);
-  eException = class(Exception);
+
+
 
   TUDMConection = class(TDataModule)
     conBD: TZConnection;
@@ -234,38 +234,9 @@ begin
   Result := vValor;
 end;
 
-function ObtenerElemento(Numero: Integer; Cadena: String): String;
-var
-  Cuenta, Cta: Integer;
-  Found: Boolean;
-  Valor, Resultado: String;
-begin
-  Cuenta := 0;
-  Valor := '';
-  Cta := 0;
-  Cadena := Cadena + '|';
-  Resultado := '';
-  Found := False;
-  while (Cuenta < Length(Cadena)) and Not Found do
-  begin
-    Inc(Cuenta);
-    if Cadena[Cuenta] = '|' then
-    begin
-      inc(Cta);
-      if Cta = Numero then
-      begin
-        Found := True;
-        Resultado := Valor;
-      end
-      else
-        Valor := '';
-    end
-    else
-      Valor := Valor + Cadena[Cuenta];
-  end;
-  Result := Resultado;
-end;
+{$ENDREGION}
 
+{$REGION 'TGlobales PUBLIC'}
 constructor TGlobales.Create;
 begin
   ListaGlobal := TStringList.Create;
@@ -302,7 +273,7 @@ begin
         Elem.sTipo   := ObtenerElemento(2, Variable);
         Elem.vValor  := ObtenerElemento(2, Variable);
 
-        varGlobal.ListaGlobal.AddObject(ObtenerElemento(1, Variable), Elem);
+        Globales.ListaGlobal.AddObject(ObtenerElemento(1, Variable), Elem);
       end
       else
       begin
@@ -328,7 +299,5 @@ begin
   end;
   TVarGlobal(ListaGlobal.Objects[Indice]).vValor := Valor;
 end;
-
-
 
 end.

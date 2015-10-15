@@ -44,7 +44,6 @@ type
   private
     { Private declarations }
   public
-    procedure ArrancarSistema;
     { Public declarations }
   end;
 
@@ -55,23 +54,7 @@ implementation
 
 {$R *.dfm}
 
-Uses
-  ULogin;
-
 { TForm1 }
-
-procedure TFrmInicioFacturacion.ArrancarSistema;
-begin
-  try
-    varGlobal := TGlobales.Create;
-
-    Application.CreateForm(TFrmLogin, FrmLogin);
-    FrmLogin.ShowModal;
-  Except
-    on e: Exception do
-      MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);
-  end;
-end;
 
 procedure TFrmInicioFacturacion.FormCreate(Sender: TObject);
 begin
@@ -81,8 +64,6 @@ end;
 procedure TFrmInicioFacturacion.FormShow(Sender: TObject);
 begin
   Try
-    ArrancarSistema;
-
     if Not AsignarSQL(zDatos,'master_contactos', pReadOnly) then
       raise Exception.Create('La Consulta SQL [master_contacto] no se ha creado');
 
@@ -96,7 +77,7 @@ begin
   except
     on e: Exception do
     begin
-      MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);
+      MessageDlg( + e.Message, mtError, [mbOK], 0);
       PostMessage(Self.Handle, WM_CLOSE, 0, 0);
     end;
   End;

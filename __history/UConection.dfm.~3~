@@ -5,6 +5,7 @@ object UDMConection: TUDMConection
   Height = 292
   Width = 416
   object conBD: TZConnection
+    AfterConnect = conBDAfterConnect
     Protocol = 'mysql-5'
     HostName = 'localhost'
     Port = 3306

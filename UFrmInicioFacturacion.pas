@@ -44,6 +44,7 @@ type
   private
     { Private declarations }
   public
+    procedure ArrancarSistema;
     { Public declarations }
   end;
 
@@ -54,7 +55,23 @@ implementation
 
 {$R *.dfm}
 
+Uses
+  ULogin;
+
 { TForm1 }
+
+procedure TFrmInicioFacturacion.ArrancarSistema;
+begin
+  try
+    varGlobal := TGlobales.Create;
+
+    Application.CreateForm(TFrmLogin, FrmLogin);
+    FrmLogin.ShowModal;
+  Except
+    on e: Exception do
+      MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);
+  end;
+end;
 
 procedure TFrmInicioFacturacion.FormCreate(Sender: TObject);
 begin
@@ -64,20 +81,22 @@ end;
 procedure TFrmInicioFacturacion.FormShow(Sender: TObject);
 begin
   Try
-    if Not AsignarSQL(zDatos,'master_contactos', pReadOnly) then
-      raise Exception.Create('La Consulta SQL [master_contacto] no se ha creado');
+    ArrancarSistema;
 
-    If Not FiltrarDataset(zDatos, 'Activo',['Si']) then
-      raise Exception.Create('Error al filtrar en la consulta SQL[master_contacto]');
-
-    if zDatos.Active then
-      zDatos.Refresh
-    else
-      zDatos.Open;
+//    if Not AsignarSQL(zDatos,'master_contactos', pReadOnly) then
+//      raise Exception.Create('La Consulta SQL [master_contacto] no se ha creado');
+//
+//    If Not FiltrarDataset(zDatos, 'Activo',['Si']) then
+//      raise Exception.Create('Error al filtrar en la consulta SQL[master_contacto]');
+//
+//    if zDatos.Active then
+//      zDatos.Refresh
+//    else
+//      zDatos.Open;
   except
     on e: Exception do
     begin
-      MessageDlg('Ha ocurrido un error, informe a su administrador de sistema de lo siguiente: ' + e.Message, mtError, [mbOK], 0);
+      MessageDlg(pMensajeError + e.Message, mtError, [mbOK], 0);
       PostMessage(Self.Handle, WM_CLOSE, 0, 0);
     end;
   End;

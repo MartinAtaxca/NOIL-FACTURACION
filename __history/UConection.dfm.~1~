@@ -8,9 +8,9 @@ object UDMConection: TUDMConection
     Protocol = 'mysql-5'
     HostName = 'localhost'
     Port = 3306
-    Database = 'inifap'
+    Database = 'agenda'
     User = 'root'
-    Password = 'danae'
+    Password = 'DANAE'
     Left = 32
     Top = 16
   end

@@ -33,8 +33,8 @@ type
     procedure SetValue(Nombre: String; Valor: Variant);
   End;
 
-  eWarning = class(Exception);
-  eException = class(Exception);
+
+
 
   TUDMConection = class(TDataModule)
     conBD: TZConnection;
@@ -52,7 +52,6 @@ type
 
 var
   UDMConection: TUDMConection;
-  varGlobal: TGlobales;
 const
   pReadOnly: string = 'READONLY';
   pUpdate: string = 'UPDATE';
@@ -171,164 +170,4 @@ begin
     raise;
   end;
 end;
-
-
-function TVarGlobal.AsString: String;
-begin
-  if vValor = Null then
-    Result := ''
-  else
-    Result := vValor;
-end;
-
-function TVarGlobal.AsInteger: Integer;
-begin
-  if vValor = Null then
-    Result := 0
-  else
-    Try
-      Result := vValor;
-    Except
-      Result := 0;
-    End;
-end;
-
-function TVarGlobal.AsFloat: Extended;
-begin
-  if vValor = Null then
-    Result := 0
-  else
-    Try
-      Result := vValor;
-    Except
-      Result := 0;
-    End;
-end;
-
-function TVarGlobal.AsDate: TDate;
-begin
-  if vValor = Null then
-    Result := 0
-  else
-    Try
-      Result := Trunc(vValor);
-    Except
-      Result := 0;
-    End;
-end;
-
-function TVarGlobal.AsDateTime: TDateTime;
-begin
-  if vValor = Null then
-    Result := 0
-  else
-    Try
-      Result := vValor;
-    Except
-      Result := 0;
-    End;
-end;
-
-function TVarGlobal.AsVariant: Variant;
-begin
-  Result := vValor;
-end;
-
-function ObtenerElemento(Numero: Integer; Cadena: String): String;
-var
-  Cuenta, Cta: Integer;
-  Found: Boolean;
-  Valor, Resultado: String;
-begin
-  Cuenta := 0;
-  Valor := '';
-  Cta := 0;
-  Cadena := Cadena + '|';
-  Resultado := '';
-  Found := False;
-  while (Cuenta < Length(Cadena)) and Not Found do
-  begin
-    Inc(Cuenta);
-    if Cadena[Cuenta] = '|' then
-    begin
-      inc(Cta);
-      if Cta = Numero then
-      begin
-        Found := True;
-        Resultado := Valor;
-      end
-      else
-        Valor := '';
-    end
-    else
-      Valor := Valor + Cadena[Cuenta];
-  end;
-  Result := Resultado;
-end;
-
-constructor TGlobales.Create;
-begin
-  ListaGlobal := TStringList.Create;
-  ListaGlobal.Clear;
-end;
-
-destructor TGlobales.Destroy;
-begin
-  ListaGlobal.Free;
-end;
-
-function TGlobales.Elemento(Nombre: string): TVarGlobal;
-var
-  Indice: Integer;
-  Variable: String;
-  Elem: TVarGlobal;
-begin
-  Indice := ListaGlobal.IndexOf(Nombre);
-  if Indice >= 0 then
-  begin
-    if ((TVarGlobal(ListaGlobal.Objects[Indice]).sTipo = 'INTEGER') or
-        (TVarGlobal(ListaGlobal.Objects[Indice]).sTipo = 'FLOAT')) and (String(TVarGlobal(ListaGlobal.Objects[Indice]).vValor) = '') then
-      TVarGlobal(ListaGlobal.Objects[Indice]).vValor := 0;
-
-    Result := TVarGlobal(ListaGlobal.Objects[Indice]);
-  end
-  else
-  begin
-      Elem := TVarGlobal.Create;
-      if Variable <> '' then
-      begin
-        // Descomponer la variable en sus elementos basicos
-        Elem.sNombre := ObtenerElemento(1, Variable);
-        Elem.sTipo   := ObtenerElemento(2, Variable);
-        Elem.vValor  := ObtenerElemento(2, Variable);
-
-        varGlobal.ListaGlobal.AddObject(ObtenerElemento(1, Variable), Elem);
-      end
-      else
-      begin
-        // Descomponer la variable en sus elementos basicos
-        Elem.sNombre := '';
-        Elem.sTipo   := '';
-        Elem.vValor  := '';
-      end;
-    Result := Elem;
-  end;
-end;
-
-procedure TGlobales.SetValue(Nombre: String; Valor: Variant);
-var
-  Indice: Integer;
-begin
-  // Modificar el valor de la variable de memoria especificada
-  Indice := ListaGlobal.IndexOf(Nombre);
-  if Indice < 0 then
-  begin
-    ListaGlobal.AddObject(Nombre, TVarGlobal.Create);
-    Indice := ListaGlobal.IndexOf(Nombre);
-  end;
-  TVarGlobal(ListaGlobal.Objects[Indice]).vValor := Valor;
-end;
-
-
-
 end.
