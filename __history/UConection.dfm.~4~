@@ -1,0 +1,9 @@
+object DataModule2: TDataModule2
+  OldCreateOrder = False
+  Height = 292
+  Width = 416
+  object conBD: TZConnection
+    Left = 16
+    Top = 16
+  end
+end

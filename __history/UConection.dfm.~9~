@@ -1,0 +1,16 @@
+object UDMConection: TUDMConection
+  OldCreateOrder = False
+  Height = 292
+  Width = 416
+  object conBD: TZConnection
+    HostName = 'localhost'
+    Database = 'agenda'
+    Left = 32
+    Top = 16
+  end
+  object zConsultasSQL: TZQuery
+    Params = <>
+    Left = 32
+    Top = 80
+  end
+end

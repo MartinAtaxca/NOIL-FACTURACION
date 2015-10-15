@@ -1,0 +1,22 @@
+object UDMConection: TUDMConection
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 292
+  Width = 416
+  object conBD: TZConnection
+    Protocol = 'mysql-5'
+    HostName = 'localhost'
+    Port = 3306
+    Database = 'agenda'
+    User = 'root'
+    Password = 'DANAE'
+    Left = 32
+    Top = 16
+  end
+  object zConsultasSQL: TZQuery
+    Connection = conBD
+    Params = <>
+    Left = 32
+    Top = 80
+  end
+end
