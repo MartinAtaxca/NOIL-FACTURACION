@@ -2,7 +2,7 @@ program NoilFacturacion;
 
 uses
   Forms,
-  UFrmInicioFacturacion in 'UFrmInicioFacturacion.pas' {Form1},
+  UFrmInicioFacturacion in 'UFrmInicioFacturacion.pas' {FrmInicioFacturacion},
   UConection in 'UConection.pas' {UDMConection: TDataModule};
 
 {$R *.res}
@@ -10,7 +10,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFrmInicioFacturacion, FrmInicioFacturacion);
   Application.CreateForm(TUDMConection, UDMConection);
   Application.Run;
 end.

@@ -25,7 +25,7 @@ uses
   ZDataset, UConection;
 
 type
-  TForm1 = class(TdxRibbonForm)
+  TFrmInicioFacturacion = class(TdxRibbonForm)
     dxBarManager1: TdxBarManager;
     dxBarManager1Bar1: TdxBar;
     dxRibbon1: TdxRibbon;
@@ -48,7 +48,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FrmInicioFacturacion: TFrmInicioFacturacion;
 
 implementation
 
@@ -56,12 +56,12 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TFrmInicioFacturacion.FormCreate(Sender: TObject);
 begin
   DisableAero := True;
 end;
 
-procedure TForm1.FormShow(Sender: TObject);
+procedure TFrmInicioFacturacion.FormShow(Sender: TObject);
 begin
   Try
     if Not AsignarSQL(zDatos,'master_contactos', pReadOnly) then
@@ -76,7 +76,10 @@ begin
       zDatos.Open;
   except
     on e: Exception do
+    begin
       MessageDlg('Ha ocurrido un error, informe a su administrador de sistema de lo siguiente: ' + e.Message, mtError, [mbOK], 0);
+      PostMessage(Self.Handle, WM_CLOSE, 0, 0);
+    end;
   End;
 end;
 

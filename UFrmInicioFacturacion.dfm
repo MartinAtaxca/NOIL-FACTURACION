@@ -1,7 +1,7 @@
-object Form1: TForm1
+object FrmInicioFacturacion: TFrmInicioFacturacion
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'FrmInicioFacturacion'
   ClientHeight = 493
   ClientWidth = 899
   Color = clBtnFace

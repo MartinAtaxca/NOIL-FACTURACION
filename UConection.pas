@@ -4,17 +4,18 @@ interface
 
 uses
   SysUtils, Classes, ZAbstractConnection, ZConnection, DB, ZAbstractRODataset,
-  ZAbstractDataset, ZDataset, Variants;
+  ZAbstractDataset, ZDataset, Variants, Windows, Messages;
 
 type
   TUDMConection = class(TDataModule)
     conBD: TZConnection;
     zConsultasSQL: TZQuery;
-    procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
+    function ReloadQuerys: Boolean;
     Function setSQL(var Dataset: TZQuery; QueryName: String; Option: string): Boolean;
     function setParams(var Dataset: TZQuery; params: string; Values: array of Variant): Boolean;
     { Public declarations }
@@ -28,23 +29,40 @@ const
 
   function AsignarSQL(var Dataset: TZQuery; QueryName: String; Option: string): Boolean;
   function FiltrarDataset(var Dataset: TZQuery; params: string; Values: array of Variant): Boolean;
+  function RecargarConsultasSQL: Boolean;
 implementation
 
 {$R *.dfm}
 
+Uses
+  UFrmInicioFacturacion;
 { TDataModule2 }
 
 procedure TUDMConection.DataModuleCreate(Sender: TObject);
 begin
-  zConsultasSQL.Active := False;
-  zConsultasSQL.SQL.Text := 'Select * from master_consultassql';
-  zConsultasSQL.Open;
+  ReloadQuerys;
 end;
 
 procedure TUDMConection.DataModuleDestroy(Sender: TObject);
 begin
   if conBD.Connected then
     conBD.Connected := False;
+end;
+
+function TUDMConection.ReloadQuerys: Boolean;
+begin
+  try
+    Result := False;
+    zConsultasSQL.Active := False;
+    zConsultasSQL.SQL.Text := 'Select * from master_consultassql';
+    zConsultasSQL.Open;
+    Result := True;
+  except
+    on e: Exception do
+    begin
+      raise Exception.Create('No se pudo recargar el conjunto de consultas SQL debido al siguiente error:  ' + e.Message);
+    end;
+  end;
 end;
 
 function TUDMConection.setParams(var Dataset: TZQuery; params: string;
@@ -114,4 +132,12 @@ begin
   Result := UDMConection.setParams(Dataset,params,Values);
 end;
 
+function RecargarConsultasSQL: Boolean;
+begin
+  try
+    Result := UDMConection.ReloadQuerys;
+  except
+    raise;
+  end;
+end;
 end.

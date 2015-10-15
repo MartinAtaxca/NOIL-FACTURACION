@@ -3,10 +3,10 @@
 	<Transactions>
     <Transaction>2015/10/14 17:43:16.000.777,=C:\Users\saul\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2015/10/14 17:44:22.000.282,=C:\Users\saul\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2015/10/14 17:45:25.000.325,C:\Users\saul\Documents\RAD Studio\Projects\Unit2.pas=E:\SVN\NOIL FACTURACION\UConection.pas</Transaction>
-    <Transaction>2015/10/14 17:45:25.000.325,C:\Users\saul\Documents\RAD Studio\Projects\Unit2.dfm=E:\SVN\NOIL FACTURACION\UConection.dfm</Transaction>
-    <Transaction>2015/10/14 17:45:50.000.346,C:\Users\saul\Documents\RAD Studio\Projects\Unit1.pas=E:\SVN\NOIL FACTURACION\UFrmInicioFacturacion.pas</Transaction>
-    <Transaction>2015/10/14 17:45:50.000.346,C:\Users\saul\Documents\RAD Studio\Projects\Unit1.dfm=E:\SVN\NOIL FACTURACION\UFrmInicioFacturacion.dfm</Transaction>
-    <Transaction>2015/10/14 17:45:57.000.684,C:\Users\saul\Documents\RAD Studio\Projects\Project1.dproj=E:\SVN\NOIL FACTURACION\NoilFacturacion.dproj</Transaction>
+    <Transaction>2015/10/14 17:45:25.000.325,E:\SVN\NOIL FACTURACION\UConection.dfm=C:\Users\saul\Documents\RAD Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2015/10/14 17:45:25.000.325,E:\SVN\NOIL FACTURACION\UConection.pas=C:\Users\saul\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2015/10/14 17:45:50.000.346,E:\SVN\NOIL FACTURACION\UFrmInicioFacturacion.pas=C:\Users\saul\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/10/14 17:45:50.000.346,E:\SVN\NOIL FACTURACION\UFrmInicioFacturacion.dfm=C:\Users\saul\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2015/10/14 17:45:57.000.684,E:\SVN\NOIL FACTURACION\NoilFacturacion.dproj=C:\Users\saul\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
   </Transactions>
 </BorlandProject>
